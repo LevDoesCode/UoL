@@ -24,3 +24,6 @@ int main()
   std::cout << c << std::endl;
   return 0;
 }
+
+//This can be compiled adding both files as in
+//g++ main.cpp side.cpp
