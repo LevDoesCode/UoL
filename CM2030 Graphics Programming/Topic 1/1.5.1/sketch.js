@@ -36,7 +36,7 @@ class Button
     {
         if(this.state == true) fill (255);
         else fill(0);
-        rect(locX, locY, w, h);
+        rect(this.locX, this.locY, this.w, this.h);
     }
     flick(x, y)
     {
