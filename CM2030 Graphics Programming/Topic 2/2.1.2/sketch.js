@@ -16,8 +16,8 @@ class Ball
 {
     constructor(w, h)
     {
-        this.speedX = random(-5, 5);
-        this.speedY = random(-5, 5);
+        this.velocity = new createVector(random(-5, 2), random(-5, 20));
+        this.location = new createVector(random(w), random(h));
         this.locX = random(w);
         this.locY = random(h);
         this.maxW = w;
@@ -34,18 +34,19 @@ class Ball
     draw()
     {
         fill(125);
-        ellipse(this.locX, this.locY, 40, 40);
+        ellipse(this.location.x, this.location.y, 40, 40);
     }
 
     move()
     {
-        this.locX += this.speedX;
-        this.locY += this.speedY;
+        this.location.add(this.velocity);
+        //console.log(this.location);
     }
 
     bounce()
     {
-        if(this.locX < 0 || this.locX > this.maxW) this.speedX *= -1;
-        if(this.locY < 0 || this.locY > this.maxH) this.speedY *= -1;
+        if(this.location.x < 0 || this.location.x > this.maxW) this.velocity.x *= -1;
+        if(this.location.y < 0 || this.location.y > this.maxH) this.velocity.y *= -1;
+        console.log(this.velocity);
     }
 }
