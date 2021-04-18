@@ -4,22 +4,30 @@ let locY = 200;
 let w = 200;
 let h = 100;
 let myButton = null;
+let buttonArray = [];
 
 function setup() {
     createCanvas(900, 600);
-    myButton = new Button(200, 200, 200, 100);
+    buttonArray.push(new Button(200, 200, 200, 100));
+    buttonArray.push(new Button(300, 300, 200, 100));
 }
 
 function draw()
 {
     background(220);
-    myButton.draw();
+    for(let i=0; i<buttonArray.length; i++)
+    {
+        buttonArray[i].draw();
+    }
 
 }
 
 function mousePressed()
 {
-    myButton.flick(mouseX, mouseY);
+    for(let i=0; i<buttonArray.length; i++)
+    {
+        buttonArray[i].flick(mouseX, mouseY);
+    }
 }
 
 class Button
