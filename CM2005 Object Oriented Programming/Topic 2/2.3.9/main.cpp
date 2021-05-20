@@ -41,15 +41,27 @@ int main()
 {
 
   std::vector<OrderBookEntry> orders;
+  
+  // OrderBookEntry order1{  10000,
+  //                         0.002,
+  //                         "2020/03/17 17:01:24.884492",
+  //                         "BTC/USDT",
+  //                         OrderBookType::bid};
 
+  orders.push_back( OrderBookEntry{
+                                    10000,
+                                    0.002,
+                                    "2020/03/17 17:01:24.884492",
+                                    "BTC/USDT",
+                                    OrderBookType::bid});
 
-  OrderBookEntry order1{  10000,
-                          0.002,
-                          "2020/03/17 17:01:24.884492",
-                          "BTC/USDT",
-                          OrderBookType::bid};
-  orders.push_back(order1);
-  orders.push_back(order1);
+  orders.push_back( OrderBookEntry{
+                                    50000,
+                                    0.002,
+                                    "2020/03/17 17:01:24.884492",
+                                    "BTC/USDT",
+                                   OrderBookType::bid});
+
   std::cout << orders[0].price << std::endl;
   std::cout << orders[1].price << std::endl;
 }
