@@ -8,32 +8,51 @@ var ball;
 ///////////////////////////////////////////////
 function setup() {
   createCanvas(600, 400);
-  ball = new Ball();
+  balls = [];
 }
 ///////////////////////////////////////////////
 function draw() {
   background(0);
+
   let gravity = createVector(0, 0.1);
-  ball.applyForce(gravity);
-  let friction = ball.velocity.copy();
-  friction.mult(-1);
-  friction.normalize();
-  friction.mult(0.01);
-  ball.applyForce(friction);
-  ball.run();
+  for (let i = 0; i < balls.length; i++) {
+    let ball = balls[i];
+
+    let friction = ball.velocity.copy();
+    friction.mult(-1);
+    friction.normalize();
+    friction.mult(0.01);
+
+    let momentum = new createVector(width/2 - mouseX, height/2 - mouseY);
+    momentum.normalize();
+    momentum.mult(0.1);
+
+    ball.applyForce(gravity);
+    ball.applyForce(friction);
+    ball.applyForce(momentum);
+    ball.run();
+  }
 }
 
 function mouseClicked() {
-  ball.location = new createVector(width / 2, height / 2);
+  //ball.location = new createVector(width / 2, height / 2);
+}
+
+function mouseDragged() {
+
+  if(mouseButton === LEFT)
+    balls.push(new Ball(mouseX, mouseY));
+  else
+    balls = [];
 }
 
 ///////////////////////////////////////////////
 class Ball {
-  constructor() {
+  constructor(x, y) {
     this.acceleration = new createVector(0, 0);
-    this.velocity = new createVector(0, 0);
-    this.location = new createVector(width / 2, height / 2);
-    this.size = 40;
+    this.velocity = new createVector(random(-3, 3), random(-3, 3));
+    this.location = new createVector(x, y);
+    this.size = random (10, 60);
   }
 
   run() {
