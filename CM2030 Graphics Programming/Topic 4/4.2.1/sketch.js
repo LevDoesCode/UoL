@@ -22,18 +22,19 @@ function setup() {
 function draw() {
   background(0);
   Engine.update(engine);
-  rectMode(CENTER);
-  push();
-  let pos = box1.position;
-  translate(pos.x, pos.y);
-  rotate(box1.angle);
-  rect(0, 0, 80, 80);
-  pop();
+  
+  fill(255);
+  drawVertices(box1.vertices);
 
-  push();
-  pos = ground.position;
-  translate(pos.x, pos.y);
-  rotate(ground.angle);
-  rect(0, 0, 810, 10);
-  pop();
+  fill(150, 50, 50);
+  drawVertices(ground.vertices);
+}
+
+function drawVertices(vertices)
+{
+  beginShape();
+  for (let i = 0; i < vertices.length; i++) {
+    vertex(vertices[i].x, vertices[i].y);
+  }
+  endShape();
 }
