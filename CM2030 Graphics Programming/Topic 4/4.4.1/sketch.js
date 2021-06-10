@@ -15,7 +15,7 @@ let circles = [];
 let colorBoxes = [];
 let colorCircles = [];
 let angle = 0;
-let angleSpeed = 0.1;
+let angleSpeed = 0.02;
 let propeller;
 
 function setup() {
