@@ -9,16 +9,18 @@ var Body = Matter.Body;
 var Constraint = Matter.Constraint;
 var Mouse = Matter.Mouse;
 var MouseConstraint = Matter.MouseConstraint;
+let Composites = Matter.Composites;
+let Composite = Matter.Composite;
 
 var engine;
 var propeller;
-var boxes = [];
+var boxes = null;
 var birds = [];
 var colors = [];
 var ground;
 var slingshotBird, slingshotConstraint;
 var angle=0;
-var angleSpeed=0;
+var angleSpeed=0.01;
 var canvas;
 ////////////////////////////////////////////////////////////
 function setup() {
@@ -56,10 +58,10 @@ function draw() {
 //use arrow keys to control propeller
 function keyPressed(){
   if (keyCode == LEFT_ARROW){
-    //your code here
+    angleSpeed += 0.01;
   }
   else if (keyCode == RIGHT_ARROW){
-    //your code here
+    angleSpeed -= 0.01;
   }
 }
 ////////////////////////////////////////////////////////////
@@ -93,7 +95,8 @@ function mouseReleased(){
 //tells you if a body is off-screen
 function isOffScreen(body){
   var pos = body.position;
-  return (pos.y > height || pos.x<0 || pos.x>width);
+  return (pos.y > height)
+  // Modified so bodies don't disappear when they're not completely off the screen yet
 }
 ////////////////////////////////////////////////////////////
 //removes a body from the physics world
