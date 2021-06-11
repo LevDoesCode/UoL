@@ -15,6 +15,10 @@ class OrderBookEntry
                         OrderBookType _orderType);
 
         static OrderBookType stringToOrderBookType(std::string s);
+        static bool compareByTimestamp(OrderBookEntry& entry1, OrderBookEntry& entry2)
+        {
+            return entry1.timestamp < entry2.timestamp;
+        }
 
         double price;
         double amount;
