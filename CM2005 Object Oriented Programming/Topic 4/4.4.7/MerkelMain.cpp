@@ -84,7 +84,14 @@ void MerkelMain::enterAsk()
     }
     else
     {
-        OrderBookEntry obe = CSVReader::stringsToOBE(tokens[1], tokens[2], currentTime, tokens[0], OrderBookType::ask);
+        try
+        {
+            OrderBookEntry obe = CSVReader::stringsToOBE(tokens[1], tokens[2], currentTime, tokens[0], OrderBookType::ask);
+        }
+        catch(const std::exception& e)
+        {
+            std::cout << "MerkelMain::enterAsk Bad input!" << input << std::endl;
+        }
     }
     std::cout << "You typed: " << input << std::endl;
 }
