@@ -73,7 +73,7 @@ void MerkelMain::printMarketStats()
 
 void MerkelMain::enterAsk()
 {
-    std::cout << "Make an ask - enter the amount (product, price, amount. e.g. 'ETH/BTC, 200, 0.5)': " << std::endl;
+    std::cout << "Make an ask - enter the amount (product, price, amount. e.g. 'ETH/BTC, 200, 0.5'): " << std::endl;
     std::string input;
     //std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::getline(std::cin, input);
