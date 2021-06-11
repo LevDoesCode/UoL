@@ -2,7 +2,7 @@
 
 #include <string>
 
-enum class OrderBookType{bid, ask, unknown};
+enum class OrderBookType{bid, ask, unknown, sale};
 
 class OrderBookEntry
 {
@@ -18,6 +18,14 @@ class OrderBookEntry
         static bool compareByTimestamp(OrderBookEntry& entry1, OrderBookEntry& entry2)
         {
             return entry1.timestamp < entry2.timestamp;
+        }
+        static bool compareByPriceAsc (OrderBookEntry& entry1, OrderBookEntry& entry2)
+        {
+            return entry1.timestamp < entry2.timestamp;
+        }
+        static bool compareByPriceDesc (OrderBookEntry& entry1, OrderBookEntry& entry2)
+        {
+            return entry1.timestamp > entry2.timestamp;
         }
 
         double price;
