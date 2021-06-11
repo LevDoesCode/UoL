@@ -96,3 +96,48 @@ void OrderBook::insertOrder(OrderBookEntry& order)
   orders.push_back(order);
   std::sort(orders.begin(), orders.end(), OrderBookEntry::compareByTimestamp);
 }
+
+std::vector<OrderBookEntry> OrderBook::matchAsksToBids(std::string product, std::string timestamp)
+{
+  std::vector<OrderBookEntry> asks = getOrders(OrderBookType::ask, product, timestamp);
+  std::vector<OrderBookEntry> bids = getOrders(OrderBookType::bid, product, timestamp);
+
+  std::vector<OrderBookEntry> sales;
+
+  std::sort(asks.begin(), asks.end(), OrderBookEntry::compareByPriceAsc);
+  std::sort(bids.begin(), bids.end(), OrderBookEntry::compareByPriceDesc);
+
+  for(OrderBookEntry& thisAsk : asks)
+  {
+    for(OrderBookEntry& thisBid : bids)
+    {
+      if(thisBid.price >= thisAsk.price)
+      {
+        OrderBookEntry sale{thisAsk.price, 0, timestamp, product, OrderBookType::sale};
+        if(thisBid.amount == thisAsk.amount)
+        {
+          sale.amount = thisAsk.amount;
+          sales.push_back(sale);
+          thisBid.amount = 0;
+          break;
+        }
+        else if(thisBid.amount > thisAsk.amount)
+        {
+          sale.amount = thisAsk.amount;
+          sales.push_back(sale);
+          thisBid.amount = thisBid.amount - thisAsk.amount;
+          break;
+        }
+        else if(thisBid.amount < thisAsk.amount)
+        {
+          sale.amount = thisBid.amount;
+          sales.push_back(sale);
+          thisAsk.amount = thisAsk.amount - thisBid.amount;
+          thisBid.amount = 0;
+          continue;
+        }
+      }
+    }
+  }
+  return sales;
+}
