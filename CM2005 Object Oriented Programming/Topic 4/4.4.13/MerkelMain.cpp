@@ -46,14 +46,26 @@ void MerkelMain::printHelp()
 
 void MerkelMain::printMarketStats()
 {
+    // for product Asks
+    // for (std::string const p : orderBook.getKnownProducts())
+    // {
+    //     std::cout << "Product: " << p << std::endl;
+    //     std::vector<OrderBookEntry> entries = orderBook.getOrders(OrderBookType::ask, p, currentTime);
+    //     std::cout << "Asks for product " << p << " are " << entries.size() << std::endl;
+    //     std::cout << "Max ask for " << p << " is " << orderBook.getHighPrice(entries) << std::endl;
+    //     std::cout << "Min ask for " << p << " is " << orderBook.getLowPrice(entries) << std::endl;
+    // }
+
+    // for product Bids
     for (std::string const p : orderBook.getKnownProducts())
     {
         std::cout << "Product: " << p << std::endl;
-        std::vector<OrderBookEntry> entries = orderBook.getOrders(OrderBookType::ask, p, currentTime);
-        std::cout << "Asks for product " << p << " are " << entries.size() << std::endl;
-        std::cout << "Max ask for " << p << " is " << orderBook.getHighPrice(entries) << std::endl;
-        std::cout << "Min ask for " << p << " is " << orderBook.getLowPrice(entries) << std::endl;
+        std::vector<OrderBookEntry> entries = orderBook.getOrders(OrderBookType::bid, p, currentTime);
+        std::cout << "Bids for product " << p << " are " << entries.size() << std::endl;
+        std::cout << "Max bid for " << p << " is " << orderBook.getHighPrice(entries) << std::endl;
+        std::cout << "Min bid for " << p << " is " << orderBook.getLowPrice(entries) << std::endl;
     }
+    // Overall stats
     // std::cout << "OrderBook contains :  " << orders.size() << " entries" << std::endl;
     // unsigned int bids = 0;
     // unsigned int asks = 0;
@@ -73,15 +85,14 @@ void MerkelMain::printMarketStats()
 
 void MerkelMain::enterAsk()
 {
-    std::cout << "Make an ask - enter the amount (product, price, amount. e.g. 'ETH/BTC, 200, 0.5'): " << std::endl;
+    std::cout << "Make an ask (product, price, amount. e.g. 'ETH/BTC, 125, 0.5'): " << std::endl;
     std::string input;
-    //std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::getline(std::cin, input);
 
     std::vector<std::string> tokens = CSVReader::tokenise(input, ',');
-    if(tokens.size() != 3)
+    if (tokens.size() != 3)
     {
-        std::cout << "Bad input!" << input << std::endl;
+        std::cout << "MerkelMain::enterAsk - Bad input!" << input << std::endl;
     }
     else
     {
@@ -90,17 +101,37 @@ void MerkelMain::enterAsk()
             OrderBookEntry obe = CSVReader::stringsToOBE(tokens[1], tokens[2], currentTime, tokens[0], OrderBookType::ask);
             orderBook.insertOrder(obe);
         }
-        catch(const std::exception& e)
+        catch (const std::exception &e)
         {
-            std::cout << "MerkelMain::enterAsk Bad input!" << input << std::endl;
+            std::cout << "MerkelMain::enterAsk - Bad input!" << input << std::endl;
         }
     }
-    std::cout << "You typed: " << input << std::endl;
+    //std::cout << "You typed: " << input << std::endl;
 }
 
 void MerkelMain::enterBid()
 {
-    std::cout << "Make a bid - enter the amount" << std::endl;
+    std::cout << "Make a bid (product, price, amount. e.g. 'ETH/BTC, 150, 0.5'): " << std::endl;
+    std::string input;
+    std::getline(std::cin, input);
+
+    std::vector<std::string> tokens = CSVReader::tokenise(input, ',');
+    if (tokens.size() != 3)
+    {
+        std::cout << "MerkelMain::enterBid - Bad input!" << input << std::endl;
+    }
+    else
+    {
+        try
+        {
+            OrderBookEntry obe = CSVReader::stringsToOBE(tokens[1], tokens[2], currentTime, tokens[0], OrderBookType::bid);
+            orderBook.insertOrder(obe);
+        }
+        catch (const std::exception &e)
+        {
+            std::cout << "MerkelMain::enterAsk - Bad input!" << input << std::endl;
+        }
+    }
 }
 
 void MerkelMain::printWallet()
@@ -121,12 +152,11 @@ int MerkelMain::getUserOption()
     std::string line;
     std::cout << "Type in 1-6" << std::endl;
     std::getline(std::cin, line);
-    //std::cin >> userOption;
     try
     {
         userOption = std::stoi(line);
     }
-    catch(const std::exception& e)
+    catch (const std::exception &e)
     {
         std::cout << "Invalid input!" << std::endl;
     }
