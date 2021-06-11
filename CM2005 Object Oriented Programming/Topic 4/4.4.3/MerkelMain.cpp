@@ -3,6 +3,7 @@
 #include <vector>
 #include "OrderBookEntry.h"
 #include "CSVReader.h"
+#include <limits>
 
 MerkelMain::MerkelMain()
 {
@@ -29,16 +30,14 @@ void MerkelMain::printMenu()
     // 2 print exchange stats
     std::cout << "2: Print exchange stats" << std::endl;
     // 3 make an offer
-    std::cout << "3: Make an offer " << std::endl;
+    std::cout << "3: Make an ask " << std::endl;
     // 4 make a bid 
     std::cout << "4: Make a bid " << std::endl;
     // 5 print wallet
     std::cout << "5: Print wallet " << std::endl;
     // 6 continue   
     std::cout << "6: Continue " << std::endl;
-
     std::cout << "============== " << std::endl;
-
     std::cout << "Current time is " << currentTime << std::endl;
 }
 
@@ -76,7 +75,11 @@ void MerkelMain::printMarketStats()
 
 void MerkelMain::enterAsk()
 {
-    std::cout << "Make an ask - enter the amount " << std::endl;
+    std::cout << "Make an ask - enter the amount (product, price, amount. e.g. 'ETH/BTC, 200, 0.5)': " << std::endl;
+    std::string input;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::getline(std::cin, input);    
+    std::cout << "You typed: " << input << std::endl;
 }
 
 void MerkelMain::enterBid()
