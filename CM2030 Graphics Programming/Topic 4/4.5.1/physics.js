@@ -14,12 +14,14 @@ function drawGround() {
   drawVertices(ground.vertices);
   pop();
 }
+
 ////////////////////////////////////////////////////////////////
 function setupPropeller() {
   // your code here
   propeller = Bodies.rectangle(150, 480, 200, 15, { isStatic: true, angle: 0 });
   World.add(engine.world, [propeller]);
 }
+
 ////////////////////////////////////////////////////////////////
 //updates and draws the propeller
 function drawPropeller() {
@@ -27,12 +29,11 @@ function drawPropeller() {
   Body.setAngularVelocity(propeller, angleSpeed);
   push();
   fill(255);
-  //translate(propeller.position.x, propeller.position.y);
-  //rotate(propeller.angle);
   drawVertices(propeller.vertices);
   pop();
   angle += angleSpeed;
 }
+
 ////////////////////////////////////////////////////////////////
 function setupBird() {
   var bird = Bodies.circle(mouseX, mouseY, 20, {
@@ -45,13 +46,38 @@ function setupBird() {
   pinkFrame.push(Math.trunc(random(1, 5)) - 1);
   birds.push(bird);
 }
+
+////////////////////////////////////////////////////////////////
+function setupGreenBird() {
+  if(greenCount == 0)
+    return;
+  var greenBird = Bodies.circle(200, 250, 60, {
+    friction: 0,
+    restitution: 0.95
+  });
+
+  slingshotConstraint = Constraint.create({
+    bodyB: greenBird,
+    pointA: { x: 200, y: 200 },
+    pointB: { x: 0, y: 0 },
+    stiffness: 0.01,
+    damping: 0.0001,
+  });
+
+  Matter.Body.setMass(greenBird, greenBird.mass * 10);
+  World.add(engine.world, [greenBird, slingshotConstraint]);
+
+  greenFrame.push(Math.trunc(random(1, 5)) - 1);
+  greenBirds.push(greenBird);
+  greenCount--;
+}
 ////////////////////////////////////////////////////////////////
 function drawBirds() {
   fill("orange");
   for (let i = 0; i < birds.length; i++) {
     //drawVertices(birds[i].vertices);
     //replaced with image
-    
+
     push();
     imageMode(CENTER);
     translate(birds[i].position.x, birds[i].position.y);
@@ -68,9 +94,32 @@ function drawBirds() {
       i--;
     }
   }
-  //console.log("# Birds: ", birds.length);
-  //console.log("# World Bodies: ", engine.world.bodies.length);
 }
+
+////////////////////////////////////////////////////////////////
+function drawGreenBirds() {
+  fill("green");
+  for (let i = 0; i < greenBirds.length; i++) {
+    push();
+    imageMode(CENTER);
+    translate(greenBirds[i].position.x, greenBirds[i].position.y);
+    rotate(greenBirds[i].angle);
+    image(greenSprite[greenFrame[i]], 0, 0, 120, 120);
+    pop();
+    if (frameCount % 5 == 0)
+      greenFrame[i] < 3 ? greenFrame[i]++ : (greenFrame[i] = 0);
+
+    if (isOffScreen(greenBirds[i])) {
+      World.remove(engine.world, greenBirds[i]);
+      greenBirds.splice(i, 1);
+      greenFrame.splice(i, 1);
+      i--;
+    }
+  }
+}
+
+
+
 ////////////////////////////////////////////////////////////////
 //creates a tower of boxes
 function setupTower() {
