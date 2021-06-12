@@ -128,7 +128,7 @@ std::vector<OrderBookEntry> OrderBook::matchAsksToBids(std::string product, std:
           thisBid.amount = thisBid.amount - thisAsk.amount;
           break;
         }
-        else if(thisBid.amount < thisAsk.amount)
+        else if(thisBid.amount > 0 && thisBid.amount < thisAsk.amount)
         {
           sale.amount = thisBid.amount;
           sales.push_back(sale);
