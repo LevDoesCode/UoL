@@ -12,7 +12,8 @@ int main()
     //app.init();
     Wallet wallet;
     wallet.insertCurrency("BTC", 10);
-    std::cout << "Wallet has BTC " << wallet.containsCurrency("BTC", 11) << std::endl;
+    wallet.insertCurrency("USDT", 100.83);
+    std::cout << "Wallet has BTC " << wallet.containsCurrency("USDT", 100.50) << std::endl;
     std::cout << wallet.toString() << std::endl;
     //CSVReader::readCSV("20200317.csv");
 
