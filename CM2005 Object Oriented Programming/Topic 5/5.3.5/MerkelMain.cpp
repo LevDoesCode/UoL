@@ -159,6 +159,10 @@ void MerkelMain::gotoNextTimeframe()
         for (OrderBookEntry& sale : sales)
         {
             std::cout << "Sale price: " << sale.price << " amount " << sale.amount << std::endl; 
+            if(sale.username == "simuser")
+            {
+                wallet.processSale(sale);
+            }
         }
     }
     currentTime = orderBook.getNextTime(currentTime);

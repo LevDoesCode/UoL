@@ -20,6 +20,9 @@ class Wallet
     /** check if the wallet can cope with the ask or bid */
     bool canFulfillOrder(OrderBookEntry order);
 
+    /** update the contents of the wallet * assumes the order was amade by the owner of the wallet */
+    void processSale(OrderBookEntry& sale);
+
     /** generate a string representation of the wallet */
     std::string toString();
 
