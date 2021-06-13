@@ -2,6 +2,7 @@
 
 #include <string>
 #include <map>
+#include "OrderBookEntry.h"
 
 class Wallet
 {
@@ -15,6 +16,9 @@ class Wallet
 
     /** check if the wallet contains at least this much currency */
     bool containsCurrency(std::string type, double amount);
+
+    /** check if the wallet can cope with the ask or bid */
+    bool canFulfillOrder(OrderBookEntry order);
 
     /** generate a string representation of the wallet */
     std::string toString();
