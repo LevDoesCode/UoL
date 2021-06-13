@@ -4,11 +4,16 @@
 #include "OrderBookEntry.h"
 #include "MerkelMain.h"
 #include "CSVReader.h"
+#include "Wallet.h"
 
 int main()
 {   
-    MerkelMain app{};
-    app.init();
+    //MerkelMain app{};
+    //app.init();
+    Wallet wallet;
+    wallet.insertCurrency("BTC", 10);
+    std::cout << "Wallet has BTC " << wallet.containsCurrency("BTC", 11) << std::endl;
+    std::cout << wallet.toString() << std::endl;
     //CSVReader::readCSV("20200317.csv");
 
 }
