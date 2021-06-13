@@ -143,7 +143,6 @@ void MerkelMain::enterBid()
 
 void MerkelMain::printWallet()
 {
-    std::cout << "Your wallet is empty. " << std::endl;
     std::cout << wallet.toString() << std::endl;
 }
         
