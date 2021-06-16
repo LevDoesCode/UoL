@@ -7,11 +7,13 @@
 class Bot
 {
 public:
-  Bot(std::string filename);
+  MerkelMain app;
+  Bot(MerkelMain app);
   /** returns a vector with the Y, B0 and B1 values in the formula Y = B0 + B1.X */
   std::vector<double> linearRegresion(std::vector<OrderBookEntry> orderList, unsigned int start, unsigned int end);
-  void Print(int intLimit);
+
 
 private:
-  std::vector<OrderBookEntry> orders;
+  double getMean(std::vector<OrderBookEntry>);
+  std::vector<std::string> Bot::getTimeStamps();
 };

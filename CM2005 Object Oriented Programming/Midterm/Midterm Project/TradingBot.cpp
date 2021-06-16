@@ -1,20 +1,26 @@
 #include "TradingBot.h"
 #include <iostream>
+#include <string>
+#include "main.cpp"
 
-Bot::Bot(std::string filename)
+Bot::Bot(MerkelMain _app)
 {
-  orders = CSVReader::readCSV(filename);
-  Print(20);
+  app = _app;
 }
 
-void Bot::Print(int intLimit)
+std::vector<double> Bot::linearRegresion(std::vector<OrderBookEntry> orderList, unsigned int start, unsigned int end)
 {
-  int i = 0;
-  for (OrderBookEntry &entry : orders)
-  {
-    std::cout << entry.product << " " << entry.price << " " << entry.amount << std::endl;
-    i++;
-    if (i == intLimit)
-      break;
-  }
+  //get all dates from the order book
+}
+
+std::vector<std::string> Bot::getTimeStamps()
+{
+  std::vector<std::string> timeStamps;
+  //timeStamps.push_back(app.;
+  //while(std::find(timeStamps.begin(), timeStamps.end(), ))
+}
+
+double Bot::getMean(std::vector<OrderBookEntry>)
+{
+  
 }

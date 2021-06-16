@@ -6,6 +6,6 @@
 int main()
 {
     MerkelMain app{};
-    Bot myBot("20200317.csv");
+    Bot myBot(app);
     //app.init();
 }
