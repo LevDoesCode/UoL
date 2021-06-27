@@ -1,9 +1,11 @@
-var font;
+let font;
+let max;
+
 function preload() {
   font = loadFont('assets/Calistoga-Regular.ttf');
 }
 
-var points;
+let points;
 
 function setup() {
   createCanvas(900, 400);
@@ -14,14 +16,19 @@ function setup() {
     sampleFactor: .3,
     simplifyThreshold: 0
   });
-
+  max = 20;
 }
 
 function draw() {
     background(0);
 
-    // *** your code here ****
-
+    for (let i = 0; i < points.length; i++) {
+      let xmap = map(mouseX, 0, width, 0, max);
+      let ymap = map(mouseX, 0, width, 0, max);
+      let deltaX = random(-xmap, xmap);
+      let deltaY = random(-ymap, ymap);
+      ellipse(points[i].x + deltaX, points[i].y + deltaY, 10, 10);
+    }
     noLoop();
 }
 
