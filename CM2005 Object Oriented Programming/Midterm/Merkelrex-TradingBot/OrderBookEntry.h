@@ -1,40 +1,58 @@
 #pragma once
 
 #include <string>
+#include <map> // used to map strings
 
-enum class OrderBookType{bid, ask, unknown, asksale, bidsale};
+enum class OrderBookType
+{
+    bid,
+    ask,
+    unknown,
+    asksale,
+    bidsale
+};
+
+static const std::map<OrderBookType, std::string> stringMap = 
+{
+    {OrderBookType::ask, "ask"},
+    {OrderBookType::bid, "bid"},
+    {OrderBookType::asksale, "asksale"},
+    {OrderBookType::bidsale, "bidsale"},
+    {OrderBookType::unknown, "unknown"}
+};
 
 class OrderBookEntry
 {
-    public:
+public:
+    OrderBookEntry(double _price,
+                   double _amount,
+                   std::string _timestamp,
+                   std::string _product,
+                   OrderBookType _orderType,
+                   std::string username = "dataset");
+
+    static OrderBookType stringToOrderBookType(std::string s);
     
+    /** returns the string representation of an OrderBookType */
+    static std::string OrderBookTypeToString(OrderBookType s);
 
-        OrderBookEntry( double _price, 
-                        double _amount, 
-                        std::string _timestamp, 
-                        std::string _product, 
-                        OrderBookType _orderType, 
-                        std::string username = "dataset");
+    static bool compareByTimestamp(OrderBookEntry &e1, OrderBookEntry &e2)
+    {
+        return e1.timestamp < e2.timestamp;
+    }
+    static bool compareByPriceAsc(OrderBookEntry &e1, OrderBookEntry &e2)
+    {
+        return e1.price < e2.price;
+    }
+    static bool compareByPriceDesc(OrderBookEntry &e1, OrderBookEntry &e2)
+    {
+        return e1.price > e2.price;
+    }
 
-        static OrderBookType stringToOrderBookType(std::string s);
-
-        static bool compareByTimestamp(OrderBookEntry& e1, OrderBookEntry& e2)
-        {
-            return e1.timestamp < e2.timestamp;
-        }  
-        static bool compareByPriceAsc(OrderBookEntry& e1, OrderBookEntry& e2)
-        {
-            return e1.price < e2.price;
-        }
-         static bool compareByPriceDesc(OrderBookEntry& e1, OrderBookEntry& e2)
-        {
-            return e1.price > e2.price;
-        }
-
-        double price;
-        double amount;
-        std::string timestamp;
-        std::string product;
-        OrderBookType orderType;
-        std::string username;
+    double price;
+    double amount;
+    std::string timestamp;
+    std::string product;
+    OrderBookType orderType;
+    std::string username;
 };
