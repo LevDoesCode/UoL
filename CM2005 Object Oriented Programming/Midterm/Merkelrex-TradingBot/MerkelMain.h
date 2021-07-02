@@ -9,7 +9,6 @@ class MerkelMain
 {
 public:
     MerkelMain();
-    /** Call this to start the sim */
 
     /** Returns the current time */
     std::string getCurrentTime();
