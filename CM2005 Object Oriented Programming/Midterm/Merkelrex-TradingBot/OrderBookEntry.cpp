@@ -27,5 +27,19 @@ OrderBookType OrderBookEntry::stringToOrderBookType(std::string s)
   {
     return OrderBookType::bid;
   }
+  if(s == "asksale")
+  {
+    return OrderBookType::asksale;
+  }
+  if(s == "bidsale")
+  {
+    return OrderBookType::bidsale;
+  }
   return OrderBookType::unknown;
+}
+
+std::string OrderBookEntry::OrderBookTypeToString(OrderBookType s)
+{
+  std::string thisString = stringMap.at(s);
+  return thisString;
 }
