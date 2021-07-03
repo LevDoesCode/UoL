@@ -26,6 +26,7 @@ void TradingBot::printMenu()
   // 1 print help
   std::cout << "1: Retrieve current orders" << std::endl;
   std::cout << "2: Predict ask and bid rates" << std::endl;
+  std::cout << "3: Print predictions" << std::endl;;
   std::cout << "8: Exit bot" << std::endl;
   std::cout << spacer << std::endl;
   std::cout << "Enter an option: ";
@@ -111,6 +112,7 @@ void TradingBot::predictRates()
   for (const std::string &product : products)
   {
     askMap[product] = getMean(bookAsks, product);
+    std::cout << askMap[product] << std::endl;
   }
   askHistory.push_back(askMap);
 
@@ -143,17 +145,23 @@ void TradingBot::predictRates()
 double TradingBot::getMean(std::vector<OrderBookEntry> orders, std::string product)
 {
   double sum = 0;
+  int count = 0;
   for (const OrderBookEntry &order : orders)
   {
     if (order.product == product)
+    {
       sum += order.price;
+      ++count;
+    }
   }
-  return sum / orders.size();
+  if (count == 0) return 0.0;
+  return sum / count;
 }
 
 // Print predictions if they have been made
 void TradingBot::printPredictions()
 {
+  std::cout.precision(8);
   std::cout << "Asks" << std::endl;
   if (predictedAsks.size() == 0)
     std::cout << "No ask predictions have been made yet" << std::endl;
@@ -173,21 +181,7 @@ void TradingBot::printPredictions()
 
 void TradingBot::testFunc()
 {
-  std::cout << "Asks" << std::endl;
-  for (auto const &ask : predictedAsks)
-  {
-    std::cout << ask.first << " - " << ask.second << std::endl;
-  }
-
-  std::cout << "Bids" << std::endl;
-  for (auto const &bid : predictedBids)
-  {
-    std::cout << bid.first << " - " << bid.second << std::endl;
-  }
-
-  //std::cout << "Ask: " << askHistory[0] << std::endl;
-  return;
-  std::cout << "Asks" << std::endl;
+    std::cout << "Asks" << std::endl;
   for (int i = 0; i < bookAsks.size(); ++i)
   {
     std::cout << "Entry: " << bookAsks[i].timestamp << " - "
@@ -210,6 +204,21 @@ void TradingBot::testFunc()
   }
 
   return;
+  std::cout << "Asks" << std::endl;
+  for (auto const &ask : predictedAsks)
+  {
+    std::cout << ask.first << " - " << ask.second << std::endl;
+  }
+
+  std::cout << "Bids" << std::endl;
+  for (auto const &bid : predictedBids)
+  {
+    std::cout << bid.first << " - " << bid.second << std::endl;
+  }
+
+  //std::cout << "Ask: " << askHistory[0] << std::endl;
+  return;
+
   std::vector<OrderBookEntry> currentAsks = merkel->getCurrentAsks();
   std::cout.precision(8);
   for (int i = 0; i < currentAsks.size(); ++i)

@@ -21,12 +21,18 @@ private:
   void printMenu();
   int getUserOption();
   void processUserOption(int userOption);
+  void printPredictions();
   // Exchange functions
   void retrieveOrders(); // Retrieves current orders from Merkel and stores them in bookBids and BookAsks
-
+  void predictRates();
+  // Helper functions
+  static double getMean(std::vector<OrderBookEntry> orders, std::string product);
   // ===== Variables =====
   MerkelMain *merkel;
   std::vector<OrderBookEntry> bookBids;
   std::vector<OrderBookEntry> bookAsks;
-  double bidHistory = {};
+  std::vector<std::map<std::string, double>> bidHistory;
+  std::vector<std::map<std::string, double>> askHistory;
+  std::map<std::string, double> predictedBids;
+  std::map<std::string, double> predictedAsks;
 };
