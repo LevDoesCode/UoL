@@ -170,9 +170,10 @@ void MerkelMain::printWallet()
     std::cout << wallet.toString() << std::endl;
 }
 
-void MerkelMain::gotoNextTimeframe()
+void MerkelMain::gotoNextTimeframe(bool silent)
 {
-    std::cout << "Going to next time frame. " << std::endl;
+    if(!silent)
+        std::cout << "Going to next time frame. " << std::endl;
     for (std::string p : orderBook.getKnownProducts())
     {
         std::cout << "matching " << p << std::endl;
@@ -180,7 +181,8 @@ void MerkelMain::gotoNextTimeframe()
         std::cout << "Sales: " << sales.size() << std::endl;
         for (OrderBookEntry &sale : sales)
         {
-            std::cout << "Sale price: " << sale.price << " amount " << sale.amount << std::endl;
+            if(!silent)
+                std::cout << "Sale price: " << sale.price << " amount " << sale.amount << std::endl;
             if (sale.username == "simuser")
             {
                 // update the wallet
@@ -238,7 +240,7 @@ void MerkelMain::processUserOption(int userOption)
     }
     if (userOption == 6)
     {
-        gotoNextTimeframe();
+        gotoNextTimeframe(false);
     }
 }
 
