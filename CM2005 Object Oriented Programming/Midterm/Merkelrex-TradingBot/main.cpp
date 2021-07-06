@@ -7,5 +7,5 @@ int main()
 {   
     MerkelMain app{};
     TradingBot bot{&app};
-    app.init();
+    bot.startBot();
 }

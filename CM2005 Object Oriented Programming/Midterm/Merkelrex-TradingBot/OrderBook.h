@@ -22,7 +22,10 @@ public:
          * */
     std::string getNextTime(std::string timestamp);
 
-    void insertOrder(OrderBookEntry &order);
+    void insertOrder(OrderBookEntry& order);
+
+    // Remove order from the order book
+    void removeOrder(OrderBookEntry& order);
 
     std::vector<OrderBookEntry> matchAsksToBids(std::string product, std::string timestamp);
 

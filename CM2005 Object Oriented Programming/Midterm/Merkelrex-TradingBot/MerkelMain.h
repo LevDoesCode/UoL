@@ -22,10 +22,21 @@ public:
     /** returns a vector of all bids orders for the current time */
     std::vector<OrderBookEntry> getCurrentBids();
 
-    /** matches bids and asks, proceeds to the next time frame */
-    void gotoNextTimeframe(bool silent);
-    void enterAsk(OrderBookEntry newAsk);
-    void enterBid(OrderBookEntry newBid);
+    /** Matches bids and asks, returns the sales and proceeds to the next time frame */
+    std::vector<OrderBookEntry> gotoNextTimeframe(bool silent);
+
+    /** Enter a new ask */
+    void enterAsk(double price, double amount, std::string product);
+
+    /** Enter as new bid */
+    void enterBid(double price, double amount, std::string product);
+
+    /** Withdraw an order */
+    void withdrawOrder(OrderBookEntry order);
+
+    /** Return the wallet information */
+    std::string returnWallet();
+
 private:
     void printMenu();
     void printHelp();
@@ -40,8 +51,8 @@ private:
 
     std::string currentTime;
 
-    OrderBook orderBook{"../../../../111.csv"};
-    //OrderBook orderBook{"20200317.csv"};
+    //OrderBook orderBook{"../../../../111.csv"};
+    OrderBook orderBook{"20200317.csv"};
     //OrderBook orderBook{"20200601.csv"};
     Wallet wallet;
 };

@@ -86,6 +86,11 @@ std::string OrderBook::getNextTime(std::string timestamp)
     {
         next_timestamp = orders[0].timestamp;
     }
+    // break the loop by comparing the argument timestamp with the timestamp found
+    if (timestamp > next_timestamp)
+    {
+        return "END";
+    }
     return next_timestamp;
 }
 
@@ -93,6 +98,26 @@ void OrderBook::insertOrder(OrderBookEntry &order)
 {
     orders.push_back(order);
     std::sort(orders.begin(), orders.end(), OrderBookEntry::compareByTimestamp);
+}
+
+// Remove order from the order book
+void OrderBook::removeOrder(OrderBookEntry &order)
+{
+    for(int i=0; i<orders.size(); ++i)
+    {
+        if (orders[i].username == order.username &&
+            orders[i].timestamp == order.timestamp &&
+            orders[i].orderType == order.orderType &&
+            orders[i].product == order.product &&
+            orders[i].price == order.price &&
+            orders[i].amount == order.amount
+        )
+        {
+            orders.erase(orders.begin() + i);
+            --i;
+        }
+    }
+    return;
 }
 
 std::vector<OrderBookEntry> OrderBook::matchAsksToBids(std::string product, std::string timestamp)

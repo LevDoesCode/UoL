@@ -7,6 +7,10 @@
 MerkelMain::MerkelMain()
 {
     currentTime = orderBook.getEarliestTime();
+    wallet.insertCurrency("BTC", 10);
+    wallet.insertCurrency("ETC", 10);
+    wallet.insertCurrency("DOGE", 10);
+    wallet.insertCurrency("USDT", 10);
 }
 
 std::string MerkelMain::getCurrentTime()
@@ -86,6 +90,7 @@ void MerkelMain::printMarketStats()
     // std::cout << "OrderBook asks:  " << asks << " bids:" << bids << std::endl;
 }
 
+// Enter a new ask
 void MerkelMain::enterAsk()
 {
     std::cout << "Make an ask - enter the amount: product,price, amount, eg  ETH/BTC,200,0.5" << std::endl;
@@ -125,6 +130,7 @@ void MerkelMain::enterAsk()
     }
 }
 
+// Enter a new bid
 void MerkelMain::enterBid()
 {
     std::cout << "Make an bid - enter the amount: product,price, amount, eg  ETH/BTC,200,0.5" << std::endl;
@@ -165,23 +171,32 @@ void MerkelMain::enterBid()
     }
 }
 
+// Withdraw an order
+void MerkelMain::withdrawOrder(OrderBookEntry order)
+{
+    orderBook.removeOrder(order);
+}
+
 void MerkelMain::printWallet()
 {
     std::cout << wallet.toString() << std::endl;
 }
 
-void MerkelMain::gotoNextTimeframe(bool silent)
+std::vector<OrderBookEntry> MerkelMain::gotoNextTimeframe(bool silent)
 {
-    if(!silent)
+    // Sales vector to return
+    std::vector<OrderBookEntry> sales;
+    if (!silent)
         std::cout << "Going to next time frame. " << std::endl;
+    // Match ask to bids product by product
     for (std::string p : orderBook.getKnownProducts())
     {
-        std::cout << "matching " << p << std::endl;
-        std::vector<OrderBookEntry> sales = orderBook.matchAsksToBids(p, currentTime);
-        std::cout << "Sales: " << sales.size() << std::endl;
+        std::cout << "Matching.. " << p << std::endl;
+        std::vector<OrderBookEntry> productSales = orderBook.matchAsksToBids(p, currentTime);
+        std::cout << "Number of sales for " << p << ": " << productSales.size() << std::endl;
         for (OrderBookEntry &sale : sales)
         {
-            if(!silent)
+            if (!silent)
                 std::cout << "Sale price: " << sale.price << " amount " << sale.amount << std::endl;
             if (sale.username == "simuser")
             {
@@ -189,9 +204,34 @@ void MerkelMain::gotoNextTimeframe(bool silent)
                 wallet.processSale(sale);
             }
         }
+        // Add this product sales to the complete sales list
+        sales.insert(sales.end(), productSales.begin(), productSales.end());
     }
 
     currentTime = orderBook.getNextTime(currentTime);
+    return sales;
+}
+
+// Enter an ask at the current time
+void MerkelMain::enterAsk(double price, double amount, std::string product)
+{
+    OrderBookEntry order = {price, amount, currentTime, product, OrderBookType::ask, "simuser"};
+    // check if the wallet can afford it
+    if (wallet.canFulfillOrder(order))
+    {
+        orderBook.insertOrder(order);
+    }
+}
+
+// Enter a bid at the current time
+void MerkelMain::enterBid(double price, double amount, std::string product)
+{
+    OrderBookEntry order = {price, amount, currentTime, product, OrderBookType::bid, "simuser"};
+    // check if the wallet can afford it
+    if (wallet.canFulfillOrder(order))
+    {
+        orderBook.insertOrder(order);
+    }
 }
 
 int MerkelMain::getUserOption()
@@ -264,4 +304,9 @@ std::vector<OrderBookEntry> MerkelMain::getCurrentBids()
         currentBids.insert(currentBids.end(), thisProductBids.begin(), thisProductBids.end());
     }
     return currentBids;
+}
+
+std::string MerkelMain::returnWallet()
+{
+    return wallet.toString();
 }
