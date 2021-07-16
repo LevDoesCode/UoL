@@ -1,19 +1,21 @@
 function setup()
 {
   createCanvas(500, 500);
+  background(0);
   angleMode(DEGREES);
 }
 
 function draw()
-{
-  background(0);
+{ 
   translate(width/2, height/2);
-  let radius = 200;
   let theta = frameCount;
-  fill(255);
+  let radius = frameCount/10;
+  
   let x = cos(theta) * radius;
   let y = sin(theta) * radius;
   //let x = cos(radians(theta)) * radius;
   //let y = sin(radians(theta)) * radius;
+  fill(255);
+  noStroke();
   ellipse(x, y, 15, 15);
 }
