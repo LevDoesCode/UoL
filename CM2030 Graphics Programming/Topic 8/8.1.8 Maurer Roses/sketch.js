@@ -1,5 +1,5 @@
-let d = 8
-let n = 5;
+let n = 6;
+let d = 71;
 let sliderk;
 
 function setup()
@@ -19,11 +19,12 @@ function draw()
   noFill();
 
   beginShape();
-  for(let a = 0; a < 360; a++)
+  for(let i = 0; i <= 360; i++)
   {
-    let r = 150;
-    let x = r * cos(a);
-    let y = r * sin(a);
+    let k = i * d;
+    let r = 200 * sin(n*k);
+    let x = r * cos(k);
+    let y = r * sin(k);
     vertex(x, y);
   }
   endShape(CLOSE);
