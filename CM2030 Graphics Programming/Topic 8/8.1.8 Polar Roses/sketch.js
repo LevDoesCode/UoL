@@ -9,13 +9,17 @@ function draw()
   background(0);
   translate(width/2, height/2);
 
+  stroke(255);
+  noStroke();
+
+  beginShape();
   for (let angle=0; angle < TWO_PI; angle += 0.02)
   {
-    let r = 200 * cos( 10 * angle);
+    let r = 200 * cos(7 * angle);
     let x = r * cos(angle);
     let y = r * sin(angle);
-    stroke(255);
-    strokeWeight(4);
-    point(x, y);
+    
+    vertex(x, y);
   }
+  endShape(CLOSE);
 }
