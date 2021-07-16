@@ -9,9 +9,9 @@ function draw()
   background(0);
   translate(width/2, height/2);
 
-  for (let angle=0; angle < TWO_PI; angle += 0.1)
+  for (let angle=0; angle < TWO_PI; angle += 0.02)
   {
-    let r = 100;
+    let r = 200 * cos( 10 * angle);
     let x = r * cos(angle);
     let y = r * sin(angle);
     stroke(255);
