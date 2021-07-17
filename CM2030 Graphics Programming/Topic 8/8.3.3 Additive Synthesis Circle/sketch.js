@@ -15,8 +15,9 @@ function draw() {
     var radius = 150;
     beginShape();
     for (var theta=0; theta<360; theta+=1){
-      var wave1 = 0;// your sine code here
-      var wave2 = 0;// your noise code here
+      var wave1 = height/10 * sin(10 * theta);
+      //var wave2 = (noise(theta + frameCount/100)) * 100;
+      var wave2 = noise(theta + frameCount/100) * 100;
       var r = radius + wave1 + wave2;
       var x = cos(theta) * r;
       var y = sin(theta) * r;
