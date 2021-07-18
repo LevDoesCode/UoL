@@ -20,7 +20,7 @@ function draw() {
   angle = 45;
   stroke(255);
   translate(200, height);
-  let wind = noise(frameCount/50) * 10;
+  let wind = noise(frameCount/100) * 20;
   branch(100, 5, 255, wind);
   a = 255;
   //noLoop();
