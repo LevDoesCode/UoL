@@ -21,6 +21,11 @@ function draw() {
   // camera location x, y, z | Pointing to x, y, z | Orientation(tilt) x,y,z
   camera(xLoc, yLoc, zLoc, 0, 0, 0, 0, 1, 0);
 
+  // Chaning focused point
+  let xAim = sin(frameCount * 2) * 300;
+  xAim = 0;
+  camera(0, 0, height, xAim, 0, 0, 1, 1, 0);
+
   // objects
   normalMaterial();
   torus(200, 50, 50, 50);
