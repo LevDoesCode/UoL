@@ -15,18 +15,22 @@ function draw() {
     // getting pixel information using get()
     let c = img.get(mouseX, mouseY);
     fill(c);
-    rect(mouseX, mouseY, 50, 50);
+    rect(mouseX+10, mouseY+10, 50, 50);
 
     // getting color values manually
-    img.loadPixels();  // make the pixel array ready to be used with img.pixels[]
-    let index = (img.width * mouseY + mouseX) * 4; //index of first value
-    let channelRed = img.pixels[index + 0];
-    let channelGrn = img.pixels[index + 1];
-    let channelBlu = img.pixels[index + 2];
-    let channelAlp = img.pixels[index + 3];
+    loadPixels();  // make the pixel array ready to be used with img.pixels[]
+    //img.loadPixels() // or we can load the pixel array form the image object instead of the canvas
+    let index = (width * mouseY + mouseX) * 4; // index of first value
+    // let index = (img.width * mouseY + mouseX) * 4; // calculating the width from the image object
+    let channelRed = pixels[index + 0];
+    // let channelRed = img.pixels[index + 0]; // or read from the image pixel array instead of the canvas
+    let channelGrn = pixels[index + 1];
+    let channelBlu = pixels[index + 2];
+    let channelAlp = pixels[index + 3];
 
+    
+    fill(channelRed, channelGrn, channelBlu, channelAlp);
+    // or
     fill('rgba(' + channelRed + ',' + channelGrn + ',' + channelBlu + ',' + channelAlp + ')');
-    //fill(channelRed, channelGrn, channelBlu, channelAlp);
-    rect(mouseX + 50, mouseY, 50, 50);
-
+    rect(mouseX + 10 + 50, mouseY + 10, 50, 50);
 }
