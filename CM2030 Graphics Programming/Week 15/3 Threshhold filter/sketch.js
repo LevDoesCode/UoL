@@ -14,11 +14,11 @@ function setup() {
 function draw() {
   background(255, 0, 255);
   image(imgIn, 0, 0);
-  image(grayScaleFilter(imgIn), imgIn.width, 0);
+  image(thresholdFilter(imgIn), imgIn.width, 0);
   //noLoop();
 }
 
-function grayScaleFilter(img) {
+function thresholdFilter(img) {
   imgOut = createImage(img.width, img.height);
   imgOut.loadPixels();
   img.loadPixels();
