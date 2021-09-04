@@ -1,2 +1,0 @@
-Create and go to a new checkout (shorthad)
-git checkout -b new-branch
