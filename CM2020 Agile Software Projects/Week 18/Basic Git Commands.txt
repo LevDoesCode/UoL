@@ -15,3 +15,6 @@ git commit -a -m "My message"
 
 Undo a commit
 git --amend
+
+Show commit log
+git log
