@@ -1,0 +1,6 @@
+Initialize in the project folder
+git init
+
+Get the git status (Name of Branch, Commit section, Stating section)
+git status
+
