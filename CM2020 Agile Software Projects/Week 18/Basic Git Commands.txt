@@ -4,3 +4,13 @@ git init
 Get the git status (Name of Branch, Commit section, Stating section)
 git status
 
+Add a file to the staging area
+git add filename.txt
+
+Remove a file from the staging area
+git rm filename.txt
+
+Commit a file (all -a, -m Message)
+git commit -a -m "My message"
+
+Undo a commit
