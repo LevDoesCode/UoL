@@ -1,0 +1,2 @@
+Create a new Branch (-b) and Switch to it (checkout)
+git checkout -b new-branch
