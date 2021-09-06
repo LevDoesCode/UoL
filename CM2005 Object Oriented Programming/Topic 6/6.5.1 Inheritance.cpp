@@ -20,7 +20,7 @@ class Train : public Vehicle
 
 Train::Train()
 {
-
+  std::cout << "Train constructor" << std::endl;
 }
 
 void Train::beepHorn()
@@ -37,7 +37,7 @@ void Train::beepHorn()
 
 Vehicle::Vehicle() : speed(0.0f)
 {
-
+  std::cout << "Vehicle constructor" << std::endl;
 }
 
 float Vehicle::getspeed()
