@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot name="robot_with_four_legs">
+  <link name="body">
+    <inertial>
+      <mass value="0.5" />
+      <inertia ixx="0.0003" ixy="0.0" ixz="0.0" iyy="0.0003" iyz="0.0" izz="0.0003" />
+    </inertial>
+    <visual name="">
+      <origin xyz="0.0 0.0 1.25" rpy="0.0 0.0 0.0" />
+      <geometry>
+        <box size="2 0.5 1" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0.0 0.0 1.25" rpy="0.0 0.0 0.0" />
+      <geometry>
+        <box size="2 0.5 1" />
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="left_front_leg">
+    <inertial>
+      <mass value="0.5" />
+      <inertia ixx="0.0003" ixy="0.0" ixz="0.0" iyy="0.0003" iyz="0.0" izz="0.0003" />
+    </inertial>
+    <visual name="">
+      <geometry>
+        <box size="0.25 0.25 1" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.25 0.25 1" />
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="right_front_leg">
+    <inertial>
+      <mass value="0.5" />
+      <inertia ixx="0.0003" ixy="0.0" ixz="0.0" iyy="0.0003" iyz="0.0" izz="0.0003" />
+    </inertial>
+    <visual name="">
+      <geometry>
+        <box size="0.25 0.25 1" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.25 0.25 1" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="left_front_leg_joint" type="revolute">
+    <origin xyz="0.0 0.5 1.0" rpy="0.0 0.0 0.0"/>
+    <parent link="body"/>
+    <child link="left_front_leg"/>
+    <axis xyz="0.0 1 0.0"/>
+    <limit lower="10.0" upper="10" effort="10" velocity="10.0"/>
+  </joint>
+
+  <joint name="rgiht_front_leg_joint" type="revolute">
+    <origin xyz="0.0 -0.5 1.0" rpy="0.0 0.0 0.0"/>
+    <parent link="body"/>
+    <child link="right_front_leg"/>
+    <axis xyz="0.0 1 0.0"/>
+    <limit lower="10.0" upper="10" effort="10" velocity="10.0"/>
+  </joint>
+</robot>
