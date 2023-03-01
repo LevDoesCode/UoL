@@ -89,3 +89,30 @@ connection.query(insertCommand,
 );
 ```
 
+### Python for data
+* Graphing
+  * Matlibplot / Pyplot
+* Data analysis and ML
+  * Numpy
+  * Pandas
+  * TensorFlow
+* Web crawling and scraping
+  * BeautifulSoup
+
+### Querying
+```python
+curosr = conn.cursor()
+cursor.execute(query)
+result = cursor.fetchall()
+for row in cursor:
+    print(row['diameter']) # get column in row by name
+```
+
+### Transactions
+auto_commit is OFF by default
+Everything is considered a transaction and the changes need to be committed
+```python
+cursor.execute(update1)
+cursor.execute(update2)
+cursor.commit()
+```
